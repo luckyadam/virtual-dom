@@ -4,21 +4,17 @@ import { isVNode, isVText } from './vnode/types';
 import { type, forEach } from './util';
 
 function h (tagName, props, children) {
-  let key, namespace, childNodes = [];
+  let key, childNodes = [];
   props = props || {};
   if (props.hasOwnProperty('key') && props.key) {
     key = props.key;
     delete props.key;
   }
-  if (props.hasOwnProperty('namespace') && props.namespace) {
-    namespace = props.namespace;
-    delete props.namespace;
-  }
   tagName = parseTagName(tagName, props);
   if (children) {
     addChildren(childNodes, children, tagName);
   }
-  return new VNode(tagName, props, childNodes, key, namespace);
+  return new VNode(tagName, props, childNodes, key);
 }
 
 function addChildren (childNodes, children, tagName) {
